@@ -49,7 +49,9 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: zudoku-docs/dist
+          # zudoku.config.tsx sets basePath "/ticketing-system-api", so the
+          # build nests actual site output one level deeper under that name.
+          path: zudoku-docs/dist/ticketing-system-api
 
   deploy:
     needs: build
