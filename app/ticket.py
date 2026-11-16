@@ -1,4 +1,4 @@
-"""Клас Ticket -- квиток на подію та його статуси."""
+"""Ticket class -- a ticket to an event and its possible statuses."""
 
 from __future__ import annotations
 
@@ -12,14 +12,14 @@ from app.person import User
 
 
 class TicketStatus(str, Enum):
-    """Можливі статуси квитка протягом його життєвого циклу."""
+    """Possible statuses of a ticket throughout its lifecycle."""
 
     RESERVED = "reserved"
     PAID = "paid"
     CANCELLED = "cancelled"
 
 
-#: Допустимі переходи між статусами квитка.
+#: Allowed transitions between ticket statuses.
 _ALLOWED_TRANSITIONS: dict[TicketStatus, set[TicketStatus]] = {
     TicketStatus.RESERVED: {TicketStatus.PAID, TicketStatus.CANCELLED},
     TicketStatus.PAID: {TicketStatus.CANCELLED},
@@ -29,20 +29,21 @@ _ALLOWED_TRANSITIONS: dict[TicketStatus, set[TicketStatus]] = {
 
 @dataclass
 class Ticket:
-    """Квиток, що зв'язує конкретного користувача з конкретною подією.
+    """A ticket that links a specific user to a specific event.
 
-    Клас має дві залежності: від :class:`~app.event.Event` (на яку
-    подію виданий квиток) та від :class:`~app.person.User`
-    (кому належить квиток). При створенні квиток автоматично
-    резервує місце на події та реєструється за користувачем.
+    The class has two dependencies: on :class:`~app.event.Event`
+    (which event the ticket was issued for) and on
+    :class:`~app.person.User` (who the ticket belongs to). On
+    creation, the ticket automatically reserves a seat at the event
+    and registers itself with the owning user.
 
     Attributes:
-        ticket_id: Унікальний ідентифікатор квитка.
-        event: Подія, на яку виданий квиток.
-        owner: Власник квитка.
-        seat_number: Номер місця (якщо застосовно).
-        status: Поточний статус квитка (:class:`TicketStatus`).
-        purchase_time: Час створення/бронювання квитка.
+        ticket_id: Unique identifier of the ticket.
+        event: The event this ticket was issued for.
+        owner: The owner of the ticket.
+        seat_number: Seat number (if applicable).
+        status: Current status of the ticket (:class:`TicketStatus`).
+        purchase_time: Time the ticket was created/reserved.
     """
 
     ticket_id: int
@@ -57,30 +58,30 @@ class Ticket:
         self.owner.add_ticket(self.ticket_id)
 
     def pay(self) -> None:
-        """Переводить квиток у статус PAID.
+        """Transitions the ticket to the PAID status.
 
         Raises:
-            InvalidTicketStatusError: якщо перехід у статус PAID
-                недопустимий з поточного стану.
+            InvalidTicketStatusError: if the transition to PAID is not
+                allowed from the current state.
         """
         self._transition(TicketStatus.PAID)
 
     def cancel(self) -> None:
-        """Скасовує квиток і повертає місце в продаж на подію."""
+        """Cancels the ticket and returns the seat to the pool of sale."""
         self._transition(TicketStatus.CANCELLED)
         self.event.release_ticket()
 
     def _transition(self, new_status: TicketStatus) -> None:
-        """Перевіряє та виконує перехід між статусами квитка.
+        """Validates and performs a transition between ticket statuses.
 
         Args:
-            new_status: Новий бажаний статус.
+            new_status: The desired new status.
 
         Raises:
-            InvalidTicketStatusError: якщо перехід недопустимий.
+            InvalidTicketStatusError: if the transition is not allowed.
         """
         if new_status not in _ALLOWED_TRANSITIONS[self.status]:
             raise InvalidTicketStatusError(
-                f"Неможливо перейти з {self.status} у {new_status}"
+                f"Cannot transition from {self.status} to {new_status}"
             )
         self.status = new_status

@@ -81,7 +81,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: TicketUpdate,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Змінити статус квитка (pay/cancel)
+    """Change ticket status (pay/cancel)
 
     Args:
         ticket_id (int):
@@ -113,7 +113,7 @@ def sync(
     client: AuthenticatedClient,
     body: TicketUpdate,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Змінити статус квитка (pay/cancel)
+    """Change ticket status (pay/cancel)
 
     Args:
         ticket_id (int):
@@ -140,7 +140,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: TicketUpdate,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Змінити статус квитка (pay/cancel)
+    """Change ticket status (pay/cancel)
 
     Args:
         ticket_id (int):
@@ -170,7 +170,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: TicketUpdate,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Змінити статус квитка (pay/cancel)
+    """Change ticket status (pay/cancel)
 
     Args:
         ticket_id (int):

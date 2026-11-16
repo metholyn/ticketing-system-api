@@ -1,30 +1,30 @@
-# Lab 2 — Документування програмного коду (Doxygen)
+# Lab 2 — Code Documentation (Doxygen)
 
-Доменна модель системи продажу квитків на події (Ticketing system),
-варіант 14 (Event, Ticket), написана на Python.
+Domain model of an event ticketing system (variant 14: Event, Ticket),
+written in Python.
 
-## Структура
+## Structure
 
-- `app/person.py` — абстрактний клас `Person` і класи-нащадки `User`, `Organizer` (наслідування)
-- `app/venue.py` — клас `Venue`
-- `app/event.py` — клас `Event` (залежить від `Organizer` і `Venue`)
-- `app/ticket.py` — клас `Ticket` і перелік `TicketStatus` (залежить від `Event` і `User`)
-- `app/repository.py` — клас `TicketingRepository`, що агрегує всі сутності
-- `app/exceptions.py` — доменні винятки
-- `demo.py` — демонстраційний запуск моделі
+- `app/person.py` — abstract class `Person` and its subclasses `User`, `Organizer` (inheritance)
+- `app/venue.py` — the `Venue` class
+- `app/event.py` — the `Event` class (depends on `Organizer` and `Venue`)
+- `app/ticket.py` — the `Ticket` class and the `TicketStatus` enum (depends on `Event` and `User`)
+- `app/repository.py` — the `TicketingRepository` class, aggregating all entities
+- `app/exceptions.py` — domain exceptions
+- `demo.py` — a demo script that runs the model
 
-## Генерація документації
+## Generating the documentation
 
-Документація згенерована інструментом **Doxygen** (з graphviz для UML-діаграм
-класів та графів викликів):
+The documentation is generated with **Doxygen** (with graphviz for
+class UML diagrams and call graphs):
 
 ```bash
 doxygen Doxyfile
 ```
 
-Результат — у папці `docs/html/`. Відкрити `docs/html/index.html` у браузері.
+The result is in the `docs/html/` folder. Open `docs/html/index.html` in a browser.
 
-## Запуск демо
+## Running the demo
 
 ```bash
 python3 demo.py

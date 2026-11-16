@@ -66,7 +66,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Отримати подію за id
+    """Get event by id
 
     Args:
         event_id (int):
@@ -95,7 +95,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Отримати подію за id
+    """Get event by id
 
     Args:
         event_id (int):
@@ -119,7 +119,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Отримати подію за id
+    """Get event by id
 
     Args:
         event_id (int):
@@ -146,7 +146,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Отримати подію за id
+    """Get event by id
 
     Args:
         event_id (int):

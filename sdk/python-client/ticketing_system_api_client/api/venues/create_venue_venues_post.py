@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: VenueCreate,
 ) -> Response[HTTPValidationError | VenueOut]:
-    """Створити майданчик
+    """Create venue
 
     Args:
         body (VenueCreate):
@@ -94,7 +94,7 @@ def sync(
     client: AuthenticatedClient,
     body: VenueCreate,
 ) -> HTTPValidationError | VenueOut | None:
-    """Створити майданчик
+    """Create venue
 
     Args:
         body (VenueCreate):
@@ -118,7 +118,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: VenueCreate,
 ) -> Response[HTTPValidationError | VenueOut]:
-    """Створити майданчик
+    """Create venue
 
     Args:
         body (VenueCreate):
@@ -145,7 +145,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: VenueCreate,
 ) -> HTTPValidationError | VenueOut | None:
-    """Створити майданчик
+    """Create venue
 
     Args:
         body (VenueCreate):

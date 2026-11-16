@@ -1,13 +1,13 @@
-"""REST API системи продажу квитків на події (Ticketing System).
+"""REST API for an event ticketing system (Ticketing System).
 
-Варіант 14: сутності Event, Ticket. Для роботи цих сутностей також
-реалізовано допоміжні ресурси Organizer, Venue, User (вони потрібні
-як зовнішні ключі для Event та Ticket).
+Variant 14: the Event and Ticket entities. To support them, the
+auxiliary resources Organizer, Venue and User are also implemented
+(they are needed as foreign keys for Event and Ticket).
 
-Запуск локально:
+Run locally:
     uvicorn api.main:app --reload
 
-OpenAPI-специфікація доступна за адресами:
+The OpenAPI specification is available at:
     GET /openapi.json
     GET /docs   (Swagger UI)
 """
@@ -35,18 +35,18 @@ from api.schemas import (
     VenueOut,
 )
 
-#: Статичний набір дійсних демонстраційних API-ключів.
-#: У продакшн-системі ключі зберігались би в базі даних/секрет-сховищі.
+#: A static set of valid demo API keys.
+#: In a production system, keys would be stored in a database/secret store.
 _VALID_API_KEYS = {"demo-key-123"}
 
 _api_key_header = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 
 def require_api_key(api_key: str | None = Security(_api_key_header)) -> str:
-    """Перевіряє наявність та коректність API-ключа в заголовку X-API-Key.
+    """Checks that the X-API-Key header is present and valid.
 
     Raises:
-        HTTPException: 401, якщо ключ відсутній або невірний.
+        HTTPException: 401, if the key is missing or invalid.
     """
     if api_key is None or api_key not in _VALID_API_KEYS:
         raise HTTPException(
@@ -59,9 +59,9 @@ def require_api_key(api_key: str | None = Security(_api_key_header)) -> str:
 app = FastAPI(
     title="Ticketing System API",
     description=(
-        "REST API для системи продажу квитків на події. "
-        "Основні сутності: **Event** (подія) та **Ticket** (квиток). "
-        "Усі запити потребують заголовка `X-API-Key`."
+        "REST API for an event ticketing system. "
+        "Main entities: **Event** and **Ticket**. "
+        "All requests require the `X-API-Key` header."
     ),
     version="1.0.0",
     contact={"name": "Mark Pereverzov"},
@@ -102,7 +102,7 @@ def _ticket_out(ticket) -> TicketOut:
     response_model=OrganizerOut,
     status_code=status.HTTP_201_CREATED,
     tags=["organizers"],
-    summary="Створити організатора",
+    summary="Create organizer",
 )
 def create_organizer(payload: OrganizerCreate) -> OrganizerOut:
     organizer = repo.add_organizer(
@@ -150,7 +150,7 @@ def get_organizer(organizer_id: int) -> OrganizerOut:
     response_model=VenueOut,
     status_code=status.HTTP_201_CREATED,
     tags=["venues"],
-    summary="Створити майданчик",
+    summary="Create venue",
 )
 def create_venue(payload: VenueCreate) -> VenueOut:
     venue = repo.add_venue(name=payload.name, address=payload.address, capacity=payload.capacity)
@@ -184,7 +184,7 @@ def get_venue(venue_id: int) -> VenueOut:
     response_model=UserOut,
     status_code=status.HTTP_201_CREATED,
     tags=["users"],
-    summary="Зареєструвати користувача",
+    summary="Register user",
 )
 def create_user(payload: UserCreate) -> UserOut:
     user = repo.add_user(full_name=payload.full_name, email=payload.email, phone=payload.phone)
@@ -231,7 +231,7 @@ def get_user(user_id: int) -> UserOut:
     status_code=status.HTTP_201_CREATED,
     responses={404: {"model": ErrorResponse}},
     tags=["events"],
-    summary="Створити подію",
+    summary="Create event",
 )
 def create_event(payload: EventCreate) -> EventOut:
     try:
@@ -250,7 +250,7 @@ def create_event(payload: EventCreate) -> EventOut:
     return _event_out(event)
 
 
-@app.get("/events", response_model=list[EventOut], tags=["events"], summary="Список подій")
+@app.get("/events", response_model=list[EventOut], tags=["events"], summary="List events")
 def list_events() -> list[EventOut]:
     return [_event_out(e) for e in repo.list_events()]
 
@@ -260,7 +260,7 @@ def list_events() -> list[EventOut]:
     response_model=EventOut,
     responses={404: {"model": ErrorResponse}},
     tags=["events"],
-    summary="Отримати подію за id",
+    summary="Get event by id",
 )
 def get_event(event_id: int) -> EventOut:
     event = repo.get_event(event_id)
@@ -274,7 +274,7 @@ def get_event(event_id: int) -> EventOut:
     response_model=EventOut,
     responses={404: {"model": ErrorResponse}},
     tags=["events"],
-    summary="Оновити подію",
+    summary="Update event",
 )
 def update_event(event_id: int, payload: EventUpdate) -> EventOut:
     event = repo.get_event(event_id)
@@ -291,7 +291,7 @@ def update_event(event_id: int, payload: EventUpdate) -> EventOut:
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
     tags=["events"],
-    summary="Видалити подію",
+    summary="Delete event",
 )
 def delete_event(event_id: int) -> None:
     if repo.get_event(event_id) is None:
@@ -306,7 +306,7 @@ def delete_event(event_id: int) -> None:
     status_code=status.HTTP_201_CREATED,
     responses={404: {"model": ErrorResponse}, 409: {"model": ErrorResponse}},
     tags=["tickets"],
-    summary="Придбати (створити) квиток",
+    summary="Buy (create) a ticket",
 )
 def create_ticket(payload: TicketCreate) -> TicketOut:
     try:
@@ -320,7 +320,7 @@ def create_ticket(payload: TicketCreate) -> TicketOut:
     return _ticket_out(ticket)
 
 
-@app.get("/tickets", response_model=list[TicketOut], tags=["tickets"], summary="Список квитків")
+@app.get("/tickets", response_model=list[TicketOut], tags=["tickets"], summary="List tickets")
 def list_tickets() -> list[TicketOut]:
     return [_ticket_out(t) for t in repo.list_tickets()]
 
@@ -330,7 +330,7 @@ def list_tickets() -> list[TicketOut]:
     response_model=TicketOut,
     responses={404: {"model": ErrorResponse}},
     tags=["tickets"],
-    summary="Отримати квиток за id",
+    summary="Get ticket by id",
 )
 def get_ticket(ticket_id: int) -> TicketOut:
     ticket = repo.get_ticket(ticket_id)
@@ -344,7 +344,7 @@ def get_ticket(ticket_id: int) -> TicketOut:
     response_model=TicketOut,
     responses={404: {"model": ErrorResponse}, 409: {"model": ErrorResponse}},
     tags=["tickets"],
-    summary="Змінити статус квитка (pay/cancel)",
+    summary="Change ticket status (pay/cancel)",
 )
 def update_ticket(ticket_id: int, payload: TicketUpdate) -> TicketOut:
     ticket = repo.get_ticket(ticket_id)
@@ -367,7 +367,7 @@ def update_ticket(ticket_id: int, payload: TicketUpdate) -> TicketOut:
     status_code=status.HTTP_204_NO_CONTENT,
     responses={404: {"model": ErrorResponse}},
     tags=["tickets"],
-    summary="Скасувати та видалити квиток",
+    summary="Cancel and delete a ticket",
 )
 def delete_ticket(ticket_id: int) -> None:
     if repo.get_ticket(ticket_id) is None:

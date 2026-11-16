@@ -1,6 +1,6 @@
 ## @package app
-#  Доменна модель системи продажу квитків на події (Ticketing system).
+#  Domain model of an event ticketing system.
 #
-#  Пакет містить ієрархію класів Person -> User, Organizer, а також
-#  класи Venue, Event та Ticket, пов'язані відношеннями залежності
-#  та агрегації.
+#  The package contains the Person -> User, Organizer inheritance
+#  hierarchy, as well as the Venue, Event and Ticket classes, linked
+#  by dependency and aggregation relationships.

@@ -1,4 +1,4 @@
-"""Pydantic-схеми запитів/відповідей для REST API Ticketing System."""
+"""Pydantic request/response schemas for the Ticketing System REST API."""
 
 from __future__ import annotations
 

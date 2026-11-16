@@ -64,7 +64,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | ErrorResponse | HTTPValidationError]:
-    """Скасувати та видалити квиток
+    """Cancel and delete a ticket
 
     Args:
         ticket_id (int):
@@ -93,7 +93,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | ErrorResponse | HTTPValidationError | None:
-    """Скасувати та видалити квиток
+    """Cancel and delete a ticket
 
     Args:
         ticket_id (int):
@@ -117,7 +117,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | ErrorResponse | HTTPValidationError]:
-    """Скасувати та видалити квиток
+    """Cancel and delete a ticket
 
     Args:
         ticket_id (int):
@@ -144,7 +144,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | ErrorResponse | HTTPValidationError | None:
-    """Скасувати та видалити квиток
+    """Cancel and delete a ticket
 
     Args:
         ticket_id (int):

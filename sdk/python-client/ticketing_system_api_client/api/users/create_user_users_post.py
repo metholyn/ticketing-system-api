@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: UserCreate,
 ) -> Response[HTTPValidationError | UserOut]:
-    """Зареєструвати користувача
+    """Register user
 
     Args:
         body (UserCreate):
@@ -94,7 +94,7 @@ def sync(
     client: AuthenticatedClient,
     body: UserCreate,
 ) -> HTTPValidationError | UserOut | None:
-    """Зареєструвати користувача
+    """Register user
 
     Args:
         body (UserCreate):
@@ -118,7 +118,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: UserCreate,
 ) -> Response[HTTPValidationError | UserOut]:
-    """Зареєструвати користувача
+    """Register user
 
     Args:
         body (UserCreate):
@@ -145,7 +145,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: UserCreate,
 ) -> HTTPValidationError | UserOut | None:
-    """Зареєструвати користувача
+    """Register user
 
     Args:
         body (UserCreate):

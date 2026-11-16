@@ -1,8 +1,8 @@
 openapi: 3.1.0
 info:
   title: Ticketing System API
-  description: 'REST API для системи продажу квитків на події. Основні сутності: **Event**
-    (подія) та **Ticket** (квиток). Усі запити потребують заголовка `X-API-Key`.'
+  description: 'REST API for an event ticketing system. Main entities: **Event** and
+    **Ticket**. All requests require the `X-API-Key` header.'
   contact:
     name: Mark Pereverzov
   version: 1.0.0
@@ -28,7 +28,7 @@ paths:
     post:
       tags:
       - organizers
-      summary: Створити організатора
+      summary: Create organizer
       operationId: create_organizer_organizers_post
       requestBody:
         content:
@@ -106,7 +106,7 @@ paths:
     post:
       tags:
       - venues
-      summary: Створити майданчик
+      summary: Create venue
       operationId: create_venue_venues_post
       requestBody:
         content:
@@ -184,7 +184,7 @@ paths:
     post:
       tags:
       - users
-      summary: Зареєструвати користувача
+      summary: Register user
       operationId: create_user_users_post
       requestBody:
         content:
@@ -245,7 +245,7 @@ paths:
     get:
       tags:
       - events
-      summary: Список подій
+      summary: List events
       operationId: list_events_events_get
       responses:
         '200':
@@ -262,7 +262,7 @@ paths:
     post:
       tags:
       - events
-      summary: Створити подію
+      summary: Create event
       operationId: create_event_events_post
       requestBody:
         content:
@@ -295,7 +295,7 @@ paths:
     get:
       tags:
       - events
-      summary: Отримати подію за id
+      summary: Get event by id
       operationId: get_event_events__event_id__get
       security:
       - APIKeyHeader: []
@@ -328,7 +328,7 @@ paths:
     put:
       tags:
       - events
-      summary: Оновити подію
+      summary: Update event
       operationId: update_event_events__event_id__put
       security:
       - APIKeyHeader: []
@@ -367,7 +367,7 @@ paths:
     delete:
       tags:
       - events
-      summary: Видалити подію
+      summary: Delete event
       operationId: delete_event_events__event_id__delete
       security:
       - APIKeyHeader: []
@@ -397,7 +397,7 @@ paths:
     get:
       tags:
       - tickets
-      summary: Список квитків
+      summary: List tickets
       operationId: list_tickets_tickets_get
       responses:
         '200':
@@ -414,7 +414,7 @@ paths:
     post:
       tags:
       - tickets
-      summary: Придбати (створити) квиток
+      summary: Buy (create) a ticket
       operationId: create_ticket_tickets_post
       requestBody:
         content:
@@ -453,7 +453,7 @@ paths:
     get:
       tags:
       - tickets
-      summary: Отримати квиток за id
+      summary: Get ticket by id
       operationId: get_ticket_tickets__ticket_id__get
       security:
       - APIKeyHeader: []
@@ -486,7 +486,7 @@ paths:
     put:
       tags:
       - tickets
-      summary: Змінити статус квитка (pay/cancel)
+      summary: Change ticket status (pay/cancel)
       operationId: update_ticket_tickets__ticket_id__put
       security:
       - APIKeyHeader: []
@@ -531,7 +531,7 @@ paths:
     delete:
       tags:
       - tickets
-      summary: Скасувати та видалити квиток
+      summary: Cancel and delete a ticket
       operationId: delete_ticket_tickets__ticket_id__delete
       security:
       - APIKeyHeader: []
@@ -811,7 +811,7 @@ components:
       - paid
       - cancelled
       title: TicketStatus
-      description: Можливі статуси квитка протягом його життєвого циклу.
+      description: Possible statuses of a ticket throughout its lifecycle.
     TicketUpdate:
       properties:
         status:

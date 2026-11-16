@@ -1,9 +1,9 @@
-"""Доменні винятки системи продажу квитків."""
+"""Domain exceptions of the ticketing system."""
 
 
 class SoldOutError(RuntimeError):
-    """Виникає, коли на подію більше немає вільних квитків."""
+    """Raised when there are no more tickets available for an event."""
 
 
 class InvalidTicketStatusError(RuntimeError):
-    """Виникає при недопустимому переході статусу квитка."""
+    """Raised on an invalid ticket status transition."""

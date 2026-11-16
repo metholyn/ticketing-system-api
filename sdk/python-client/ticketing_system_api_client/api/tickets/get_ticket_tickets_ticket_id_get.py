@@ -66,7 +66,7 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Отримати квиток за id
+    """Get ticket by id
 
     Args:
         ticket_id (int):
@@ -95,7 +95,7 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Отримати квиток за id
+    """Get ticket by id
 
     Args:
         ticket_id (int):
@@ -119,7 +119,7 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Отримати квиток за id
+    """Get ticket by id
 
     Args:
         ticket_id (int):
@@ -146,7 +146,7 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Отримати квиток за id
+    """Get ticket by id
 
     Args:
         ticket_id (int):

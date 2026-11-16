@@ -15,7 +15,7 @@ T = TypeVar("T", bound="TicketUpdate")
 class TicketUpdate:
     """
     Attributes:
-        status (TicketStatus): Можливі статуси квитка протягом його життєвого циклу.
+        status (TicketStatus): Possible statuses of a ticket throughout its lifecycle.
     """
 
     status: TicketStatus

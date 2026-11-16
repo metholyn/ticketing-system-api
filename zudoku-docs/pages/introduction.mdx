@@ -4,11 +4,11 @@ title: Introduction
 
 # Ticketing System API
 
-REST API для системи продажу квитків на події. Основні сутності:
+A REST API for an event ticketing system. Main entities:
 
-- **Event** — подія, на яку продаються квитки (дата, майданчик, організатор, ціна, кількість місць).
-- **Ticket** — квиток, що зв'язує конкретну подію з конкретним користувачем (статус: `reserved`, `paid`, `cancelled`).
+- **Event** — an event that tickets are sold for (date, venue, organizer, price, number of seats).
+- **Ticket** — a ticket linking a specific event to a specific user (status: `reserved`, `paid`, `cancelled`).
 
-Допоміжні сутності `Organizer`, `Venue`, `User` використовуються як зовнішні ключі для `Event` та `Ticket`.
+The auxiliary entities `Organizer`, `Venue` and `User` are used as foreign keys for `Event` and `Ticket`.
 
-Повна специфікація API доступна в розділі [API Reference](/api).
+The full API specification is available in the [API Reference](/api) section.

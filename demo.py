@@ -1,6 +1,6 @@
-"""Демонстраційний скрипт роботи доменної моделі Ticketing system.
+"""Demo script showcasing the Ticketing System domain model.
 
-Запуск: python demo.py
+Run with: python demo.py
 """
 
 from datetime import datetime

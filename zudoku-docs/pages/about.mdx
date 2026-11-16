@@ -4,29 +4,30 @@ title: About
 
 # About
 
-Цей проєкт — навчальна робота з курсу "Професійно-орієнтований практикум іноземною мовою",
-змістовий модуль 2 ("Документування програмного коду"), практичне завдання
-"Документування API за допомогою OpenAPI та Zudoku".
+This project is a university assignment for the course "Professionally-oriented
+practicum in a foreign language", content module 2 ("Documenting software
+code"), practical task "Documenting an API with OpenAPI and Zudoku".
 
-**Автор:** Марк Переверзов (Mark Pereverzov)
-**Предметна область (варіант 14):** Ticketing system — система продажу квитків на події,
-сутності `Event` та `Ticket`.
+**Author:** Mark Pereverzov
+**Subject area (variant 14):** Ticketing system — an event ticketing system,
+entities `Event` and `Ticket`.
 
-## Що зроблено
+## What was done
 
-1. Спроєктовано REST API для доменної моделі Ticketing System (CRUD для `Event` та `Ticket`,
-   допоміжні ресурси `Organizer`, `Venue`, `User`).
-2. API описано в форматі OpenAPI 3.1 (`openapi.yaml` / `openapi.json`), згенеровано автоматично
-   з коду за допомогою FastAPI.
-3. За допомогою генератора `openapi-python-client` згенеровано Python SDK-клієнт
+1. Designed a REST API for the Ticketing System domain model (CRUD for `Event`
+   and `Ticket`, auxiliary resources `Organizer`, `Venue`, `User`).
+2. Described the API in the OpenAPI 3.1 format (`openapi.yaml` / `openapi.json`),
+   generated automatically from the code with FastAPI.
+3. Generated a Python SDK client with the `openapi-python-client` generator
    (`sdk/python-client/`).
-4. Код, OpenAPI-документ та SDK завантажено в GitHub-репозиторій.
-5. Створено цей проєкт документації на базі [Zudoku](https://zudoku.dev), задеплоєний на
-   GitHub Pages.
+4. Uploaded the code, the OpenAPI document and the SDK to a GitHub repository.
+5. Created this documentation site with [Zudoku](https://zudoku.dev), deployed
+   to GitHub Pages.
 
-## Корисні посилання
+## Useful links
 
-- Репозиторій з кодом, OpenAPI-специфікацією та SDK: див. посилання в README репозиторію.
-- [Installation](/installation) — як встановити та запустити API і SDK.
-- [Authorization](/authorization) — як авторизовувати запити до API.
-- [API Reference](/api) — інтерактивна документація всіх ендпоінтів.
+- Repository with the code, OpenAPI specification and SDK: see the link in the
+  repository's README.
+- [Installation](/installation) — how to install and run the API and the SDK.
+- [Authorization](/authorization) — how to authorize requests to the API.
+- [API Reference](/api) — interactive documentation of all endpoints.

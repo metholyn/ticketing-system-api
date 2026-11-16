@@ -71,7 +71,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EventCreate,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Створити подію
+    """Create event
 
     Args:
         body (EventCreate):
@@ -100,7 +100,7 @@ def sync(
     client: AuthenticatedClient,
     body: EventCreate,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Створити подію
+    """Create event
 
     Args:
         body (EventCreate):
@@ -124,7 +124,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EventCreate,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Створити подію
+    """Create event
 
     Args:
         body (EventCreate):
@@ -151,7 +151,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EventCreate,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Створити подію
+    """Create event
 
     Args:
         body (EventCreate):

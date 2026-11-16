@@ -4,8 +4,9 @@ title: Authorization
 
 # Authorization
 
-Ticketing System API використовує авторизацію за **API-ключем**, переданим у
-заголовку запиту. Схема безпеки описана в OpenAPI-документі (`components.securitySchemes.APIKeyHeader`):
+The Ticketing System API uses **API-key authorization**, passed in a request
+header. The security scheme is described in the OpenAPI document
+(`components.securitySchemes.APIKeyHeader`):
 
 ```yaml
 components:
@@ -16,31 +17,32 @@ components:
       name: X-API-Key
 ```
 
-## Як передати ключ
+## How to pass the key
 
-Кожен запит до API (окрім `/openapi.json` та `/docs`) повинен містити заголовок:
+Every request to the API (except `/openapi.json` and `/docs`) must include the
+header:
 
 ```
 X-API-Key: demo-key-123
 ```
 
-Приклад запиту через `curl`:
+Example request with `curl`:
 
 ```bash
 curl -H "X-API-Key: demo-key-123" http://localhost:8000/events
 ```
 
-У згенерованому SDK (див. [Installation](/installation)) ключ передається через
+In the generated SDK (see [Installation](/installation)), the key is passed via
 `AuthenticatedClient(..., token="demo-key-123", auth_header_name="X-API-Key")`.
 
-## Коди помилок
+## Error codes
 
-| Код | Коли виникає |
+| Code | When it occurs |
 | --- | --- |
-| `401 Unauthorized` | Заголовок `X-API-Key` відсутній або містить невірний ключ |
-| `404 Not Found` | Сутність (подія, квиток, користувач тощо) з таким id не знайдена |
-| `409 Conflict` | Недопустима операція: подія розпродана, або неможливий перехід статусу квитка |
+| `401 Unauthorized` | The `X-API-Key` header is missing or contains an invalid key |
+| `404 Not Found` | The entity (event, ticket, user, etc.) with the given id was not found |
+| `409 Conflict` | An invalid operation: the event is sold out, or an impossible ticket status transition was requested |
 
-> У цьому навчальному проєкті `demo-key-123` — єдиний дійсний ключ, захардкоджений
-> у `api/main.py`. У реальній системі ключі зберігались би в базі даних та видавались
-> би кожному клієнту окремо.
+> In this learning project `demo-key-123` is the only valid key, hard-coded in
+> `api/main.py`. In a real system, keys would be stored in a database and
+> issued individually to each client.

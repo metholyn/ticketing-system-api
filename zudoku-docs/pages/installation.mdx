@@ -4,30 +4,32 @@ title: Installation
 
 # Installation
 
-## 1. Запуск самого API
+## 1. Running the API itself
 
 ```bash
-git clone <URL_ЦЬОГО_РЕПОЗИТОРІЮ>
-cd ticketing-system
+git clone <URL_OF_THIS_REPOSITORY>
+cd ticketing-system-api
 pip install -r requirements.txt
 uvicorn api.main:app --reload
 ```
 
-API буде доступне на `http://localhost:8000`, Swagger UI — на `http://localhost:8000/docs`,
-а сира OpenAPI-специфікація — на `http://localhost:8000/openapi.json`.
+The API will be available at `http://localhost:8000`, the Swagger UI at
+`http://localhost:8000/docs`, and the raw OpenAPI specification at
+`http://localhost:8000/openapi.json`.
 
-## 2. Встановлення згенерованого SDK (Python)
+## 2. Installing the generated SDK (Python)
 
-SDK-клієнт згенеровано інструментом [`openapi-python-client`](https://github.com/openapi-generators/openapi-python-client)
-на основі файлу `openapi.yaml` (пункт 4 завдання) і лежить у теці `sdk/python-client`.
+The SDK client is generated with
+[`openapi-python-client`](https://github.com/openapi-generators/openapi-python-client)
+from the `openapi.yaml` file (task item 4) and lives in the `sdk/python-client` folder.
 
 ```bash
 cd sdk/python-client
 pip install .
 ```
 
-Після встановлення пакет `ticketing_system_api_client` можна імпортувати в будь-якому
-Python-проєкті:
+Once installed, the `ticketing_system_api_client` package can be imported in any
+Python project:
 
 ```python
 from ticketing_system_api_client import Client, AuthenticatedClient
@@ -43,13 +45,13 @@ events = list_events(client=client)
 print(events)
 ```
 
-## 3. Де лежить код і SDK
+## 3. Where to find the code and the SDK
 
-| Що | Де |
+| What | Where |
 | --- | --- |
-| Вихідний код API та доменної моделі | `app/`, `api/` |
-| OpenAPI-специфікація (YAML/JSON) | `openapi.yaml`, `openapi.json` |
-| Згенерований Python SDK | `sdk/python-client/` |
-| Проєкт документації Zudoku | `zudoku-docs/` (цей сайт) |
+| API and domain model source code | `app/`, `api/` |
+| OpenAPI specification (YAML/JSON) | `openapi.yaml`, `openapi.json` |
+| Generated Python SDK | `sdk/python-client/` |
+| Zudoku documentation project | `zudoku-docs/` (this site) |
 
-Посилання на репозиторій з усім кодом та SDK наведені на сторінці [About](/about).
+Links to the repository with all the code and the SDK are on the [About](/about) page.

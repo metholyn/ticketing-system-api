@@ -1,8 +1,8 @@
-"""Базові класи учасників системи: Person, User, Organizer.
+"""Base classes for the people involved in the system: Person, User, Organizer.
 
-Модуль демонструє відношення наслідування: User та Organizer
-успадковують спільні атрибути та поведінку від абстрактного
-класу Person.
+This module demonstrates an inheritance relationship: User and
+Organizer both inherit shared attributes and behaviour from the
+abstract class Person.
 """
 
 from __future__ import annotations
@@ -16,21 +16,21 @@ _EMAIL_RE = re.compile(r"^[^@\s]+@[^@\s]+\.[^@\s]+$")
 
 
 class InvalidEmailError(ValueError):
-    """Помилка, що виникає при встановленні некоректної електронної пошти."""
+    """Raised when an invalid e-mail address is assigned to a person."""
 
 
 @dataclass
 class Person(ABC):
-    """Абстрактний базовий клас для будь-якої фізичної особи в системі.
+    """Abstract base class for any natural person in the system.
 
-    Є батьківським класом для :class:`User` та :class:`Organizer` і
-    інкапсулює спільні поля (ідентифікатор, ім'я, e-mail) та їх
-    валідацію.
+    Acts as the parent class of :class:`User` and :class:`Organizer`
+    and encapsulates the shared fields (id, name, e-mail) together
+    with their validation.
 
     Attributes:
-        person_id: Унікальний ідентифікатор особи.
-        full_name: Повне ім'я особи.
-        email: Електронна пошта особи (валідується при створенні).
+        person_id: Unique identifier of the person.
+        full_name: Full name of the person.
+        email: E-mail address of the person (validated on creation).
     """
 
     person_id: int
@@ -39,33 +39,33 @@ class Person(ABC):
 
     def __post_init__(self) -> None:
         if not _EMAIL_RE.match(self.email):
-            raise InvalidEmailError(f"Некоректний email: {self.email!r}")
+            raise InvalidEmailError(f"Invalid email: {self.email!r}")
 
     @abstractmethod
     def role(self) -> str:
-        """Повертає роль особи в системі.
+        """Returns the role of the person in the system.
 
         Returns:
-            Рядкове представлення ролі ("User" або "Organizer").
+            A string representation of the role ("User" or "Organizer").
         """
         raise NotImplementedError
 
-    def __str__(self) -> str:  # pragma: no cover - тривіально
+    def __str__(self) -> str:  # pragma: no cover - trivial
         return f"{self.role()}#{self.person_id} ({self.full_name})"
 
 
 @dataclass
 class User(Person):
-    """Користувач (глядач), який купує квитки на події.
+    """A user (attendee) who buys tickets to events.
 
-    Успадковує :class:`Person`. Веде список ідентифікаторів квитків,
-    які належать користувачу (асоціація "один до багатьох" з
-    :class:`~app.ticket.Ticket`, що зберігається за ідентифікаторами,
-    щоб уникнути циклічної залежності модулів).
+    Inherits from :class:`Person`. Keeps a list of the ids of the
+    tickets that belong to the user (a one-to-many association with
+    :class:`~app.ticket.Ticket`, stored by id to avoid a circular
+    module dependency).
 
     Attributes:
-        phone: Контактний телефон користувача.
-        ticket_ids: Список ідентифікаторів придбаних квитків.
+        phone: User's contact phone number.
+        ticket_ids: List of ids of the tickets purchased by the user.
     """
 
     phone: str = ""
@@ -75,29 +75,29 @@ class User(Person):
         return "User"
 
     def add_ticket(self, ticket_id: int) -> None:
-        """Додає ідентифікатор квитка до списку квитків користувача.
+        """Adds the id of a purchased ticket to the user's ticket list.
 
         Args:
-            ticket_id: Ідентифікатор придбаного квитка.
+            ticket_id: Id of the purchased ticket.
         """
         self.ticket_ids.append(ticket_id)
 
     def ticket_count(self) -> int:
-        """Повертає кількість квитків, якими володіє користувач."""
+        """Returns the number of tickets owned by the user."""
         return len(self.ticket_ids)
 
 
 @dataclass
 class Organizer(Person):
-    """Організатор, який створює та проводить події.
+    """An organizer who creates and runs events.
 
-    Успадковує :class:`Person`. Має залежність "один до багатьох" із
-    класом :class:`~app.event.Event`: один організатор може проводити
-    декілька подій.
+    Inherits from :class:`Person`. Has a one-to-many dependency on
+    :class:`~app.event.Event`: a single organizer can run several
+    events.
 
     Attributes:
-        organization_name: Назва організації-організатора.
-        event_ids: Список ідентифікаторів подій, якими керує організатор.
+        organization_name: Name of the organizer's organization.
+        event_ids: List of ids of the events run by this organizer.
     """
 
     organization_name: str = ""
@@ -107,9 +107,9 @@ class Organizer(Person):
         return "Organizer"
 
     def add_event(self, event_id: int) -> None:
-        """Реєструє нову подію за цим організатором.
+        """Registers a newly created event under this organizer.
 
         Args:
-            event_id: Ідентифікатор створеної події.
+            event_id: Id of the created event.
         """
         self.event_ids.append(event_id)

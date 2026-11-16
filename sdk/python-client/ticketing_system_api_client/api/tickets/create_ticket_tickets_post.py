@@ -76,7 +76,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: TicketCreate,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Придбати (створити) квиток
+    """Buy (create) a ticket
 
     Args:
         body (TicketCreate):
@@ -105,7 +105,7 @@ def sync(
     client: AuthenticatedClient,
     body: TicketCreate,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Придбати (створити) квиток
+    """Buy (create) a ticket
 
     Args:
         body (TicketCreate):
@@ -129,7 +129,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: TicketCreate,
 ) -> Response[ErrorResponse | HTTPValidationError | TicketOut]:
-    """Придбати (створити) квиток
+    """Buy (create) a ticket
 
     Args:
         body (TicketCreate):
@@ -156,7 +156,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: TicketCreate,
 ) -> ErrorResponse | HTTPValidationError | TicketOut | None:
-    """Придбати (створити) квиток
+    """Buy (create) a ticket
 
     Args:
         body (TicketCreate):

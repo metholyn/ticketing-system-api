@@ -76,7 +76,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: EventUpdate,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Оновити подію
+    """Update event
 
     Args:
         event_id (int):
@@ -108,7 +108,7 @@ def sync(
     client: AuthenticatedClient,
     body: EventUpdate,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Оновити подію
+    """Update event
 
     Args:
         event_id (int):
@@ -135,7 +135,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: EventUpdate,
 ) -> Response[ErrorResponse | EventOut | HTTPValidationError]:
-    """Оновити подію
+    """Update event
 
     Args:
         event_id (int):
@@ -165,7 +165,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: EventUpdate,
 ) -> ErrorResponse | EventOut | HTTPValidationError | None:
-    """Оновити подію
+    """Update event
 
     Args:
         event_id (int):

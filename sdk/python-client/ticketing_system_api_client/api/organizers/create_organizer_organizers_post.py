@@ -65,7 +65,7 @@ def sync_detailed(
     client: AuthenticatedClient,
     body: OrganizerCreate,
 ) -> Response[HTTPValidationError | OrganizerOut]:
-    """Створити організатора
+    """Create organizer
 
     Args:
         body (OrganizerCreate):
@@ -94,7 +94,7 @@ def sync(
     client: AuthenticatedClient,
     body: OrganizerCreate,
 ) -> HTTPValidationError | OrganizerOut | None:
-    """Створити організатора
+    """Create organizer
 
     Args:
         body (OrganizerCreate):
@@ -118,7 +118,7 @@ async def asyncio_detailed(
     client: AuthenticatedClient,
     body: OrganizerCreate,
 ) -> Response[HTTPValidationError | OrganizerOut]:
-    """Створити організатора
+    """Create organizer
 
     Args:
         body (OrganizerCreate):
@@ -145,7 +145,7 @@ async def asyncio(
     client: AuthenticatedClient,
     body: OrganizerCreate,
 ) -> HTTPValidationError | OrganizerOut | None:
-    """Створити організатора
+    """Create organizer
 
     Args:
         body (OrganizerCreate):

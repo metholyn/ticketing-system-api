@@ -20,7 +20,7 @@ class TicketOut:
         event_id (int):
         user_id (int):
         seat_number (str):
-        status (TicketStatus): Можливі статуси квитка протягом його життєвого циклу.
+        status (TicketStatus): Possible statuses of a ticket throughout its lifecycle.
         purchase_time (datetime.datetime):
     """
 
