@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+.ruff_cache/
+docs/html/
+node_modules/
+zudoku-docs/dist/
+.DS_Store

@@ -1,0 +1,969 @@
+openapi: 3.1.0
+info:
+  title: Ticketing System API
+  description: 'REST API для системи продажу квитків на події. Основні сутності: **Event**
+    (подія) та **Ticket** (квиток). Усі запити потребують заголовка `X-API-Key`.'
+  contact:
+    name: Mark Pereverzov
+  version: 1.0.0
+paths:
+  /organizers:
+    get:
+      tags:
+      - organizers
+      summary: List Organizers
+      operationId: list_organizers_organizers_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/OrganizerOut'
+                type: array
+                title: Response List Organizers Organizers Get
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - organizers
+      summary: Створити організатора
+      operationId: create_organizer_organizers_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/OrganizerCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /organizers/{organizer_id}:
+    get:
+      tags:
+      - organizers
+      summary: Get Organizer
+      operationId: get_organizer_organizers__organizer_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: organizer_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Organizer Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OrganizerOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /venues:
+    get:
+      tags:
+      - venues
+      summary: List Venues
+      operationId: list_venues_venues_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/VenueOut'
+                type: array
+                title: Response List Venues Venues Get
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - venues
+      summary: Створити майданчик
+      operationId: create_venue_venues_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/VenueCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VenueOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /venues/{venue_id}:
+    get:
+      tags:
+      - venues
+      summary: Get Venue
+      operationId: get_venue_venues__venue_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: venue_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Venue Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VenueOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /users:
+    get:
+      tags:
+      - users
+      summary: List Users
+      operationId: list_users_users_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/UserOut'
+                type: array
+                title: Response List Users Users Get
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - users
+      summary: Зареєструвати користувача
+      operationId: create_user_users_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOut'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /users/{user_id}:
+    get:
+      tags:
+      - users
+      summary: Get User
+      operationId: get_user_users__user_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: user_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: User Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /events:
+    get:
+      tags:
+      - events
+      summary: Список подій
+      operationId: list_events_events_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/EventOut'
+                type: array
+                title: Response List Events Events Get
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - events
+      summary: Створити подію
+      operationId: create_event_events_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventOut'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /events/{event_id}:
+    get:
+      tags:
+      - events
+      summary: Отримати подію за id
+      operationId: get_event_events__event_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Event Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - events
+      summary: Оновити подію
+      operationId: update_event_events__event_id__put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Event Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - events
+      summary: Видалити подію
+      operationId: delete_event_events__event_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: event_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Event Id
+      responses:
+        '204':
+          description: Successful Response
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /tickets:
+    get:
+      tags:
+      - tickets
+      summary: Список квитків
+      operationId: list_tickets_tickets_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/TicketOut'
+                type: array
+                title: Response List Tickets Tickets Get
+      security:
+      - APIKeyHeader: []
+    post:
+      tags:
+      - tickets
+      summary: Придбати (створити) квиток
+      operationId: create_ticket_tickets_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketCreate'
+        required: true
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketOut'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - APIKeyHeader: []
+  /tickets/{ticket_id}:
+    get:
+      tags:
+      - tickets
+      summary: Отримати квиток за id
+      operationId: get_ticket_tickets__ticket_id__get
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Ticket Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    put:
+      tags:
+      - tickets
+      summary: Змінити статус квитка (pay/cancel)
+      operationId: update_ticket_tickets__ticket_id__put
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Ticket Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TicketUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TicketOut'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Conflict
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - tickets
+      summary: Скасувати та видалити квиток
+      operationId: delete_ticket_tickets__ticket_id__delete
+      security:
+      - APIKeyHeader: []
+      parameters:
+      - name: ticket_id
+        in: path
+        required: true
+        schema:
+          type: integer
+          title: Ticket Id
+      responses:
+        '204':
+          description: Successful Response
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not Found
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ErrorResponse:
+      properties:
+        detail:
+          type: string
+          title: Detail
+          examples:
+          - Event not found
+      type: object
+      required:
+      - detail
+      title: ErrorResponse
+    EventCreate:
+      properties:
+        title:
+          type: string
+          title: Title
+          examples:
+          - Tech Conference 2026
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+          examples:
+          - '2026-12-01T10:00:00'
+        organizer_id:
+          type: integer
+          title: Organizer Id
+          examples:
+          - 1
+        venue_id:
+          type: integer
+          title: Venue Id
+          examples:
+          - 1
+        ticket_price:
+          type: number
+          exclusiveMinimum: 0.0
+          title: Ticket Price
+          examples:
+          - 25.0
+        total_tickets:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Total Tickets
+          examples:
+          - 200
+      type: object
+      required:
+      - title
+      - start_time
+      - organizer_id
+      - venue_id
+      - ticket_price
+      - total_tickets
+      title: EventCreate
+    EventOut:
+      properties:
+        event_id:
+          type: integer
+          title: Event Id
+          examples:
+          - 1
+        title:
+          type: string
+          title: Title
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        organizer_id:
+          type: integer
+          title: Organizer Id
+        venue_id:
+          type: integer
+          title: Venue Id
+        ticket_price:
+          type: number
+          title: Ticket Price
+        total_tickets:
+          type: integer
+          title: Total Tickets
+        sold_tickets:
+          type: integer
+          title: Sold Tickets
+        available_tickets:
+          type: integer
+          title: Available Tickets
+      type: object
+      required:
+      - event_id
+      - title
+      - start_time
+      - organizer_id
+      - venue_id
+      - ticket_price
+      - total_tickets
+      - sold_tickets
+      - available_tickets
+      title: EventOut
+    EventUpdate:
+      properties:
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          examples:
+          - Tech Conference 2026 (updated)
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        ticket_price:
+          anyOf:
+          - type: number
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Ticket Price
+        total_tickets:
+          anyOf:
+          - type: integer
+            exclusiveMinimum: 0.0
+          - type: 'null'
+          title: Total Tickets
+      type: object
+      title: EventUpdate
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OrganizerCreate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+          examples:
+          - Olena Shevchenko
+        email:
+          type: string
+          format: email
+          title: Email
+          examples:
+          - olena@eventpro.ua
+        organization_name:
+          type: string
+          title: Organization Name
+          default: ''
+          examples:
+          - EventPro
+      type: object
+      required:
+      - full_name
+      - email
+      title: OrganizerCreate
+    OrganizerOut:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+          examples:
+          - Olena Shevchenko
+        email:
+          type: string
+          format: email
+          title: Email
+          examples:
+          - olena@eventpro.ua
+        organization_name:
+          type: string
+          title: Organization Name
+          default: ''
+          examples:
+          - EventPro
+        person_id:
+          type: integer
+          title: Person Id
+          examples:
+          - 1
+      type: object
+      required:
+      - full_name
+      - email
+      - person_id
+      title: OrganizerOut
+    TicketCreate:
+      properties:
+        event_id:
+          type: integer
+          title: Event Id
+          examples:
+          - 1
+        user_id:
+          type: integer
+          title: User Id
+          examples:
+          - 1
+        seat_number:
+          type: string
+          title: Seat Number
+          examples:
+          - A1
+      type: object
+      required:
+      - event_id
+      - user_id
+      - seat_number
+      title: TicketCreate
+    TicketOut:
+      properties:
+        ticket_id:
+          type: integer
+          title: Ticket Id
+          examples:
+          - 1
+        event_id:
+          type: integer
+          title: Event Id
+        user_id:
+          type: integer
+          title: User Id
+        seat_number:
+          type: string
+          title: Seat Number
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+        purchase_time:
+          type: string
+          format: date-time
+          title: Purchase Time
+      type: object
+      required:
+      - ticket_id
+      - event_id
+      - user_id
+      - seat_number
+      - status
+      - purchase_time
+      title: TicketOut
+    TicketStatus:
+      type: string
+      enum:
+      - reserved
+      - paid
+      - cancelled
+      title: TicketStatus
+      description: Можливі статуси квитка протягом його життєвого циклу.
+    TicketUpdate:
+      properties:
+        status:
+          $ref: '#/components/schemas/TicketStatus'
+          examples:
+          - paid
+      type: object
+      required:
+      - status
+      title: TicketUpdate
+    UserCreate:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+          examples:
+          - Mark Pereverzov
+        email:
+          type: string
+          format: email
+          title: Email
+          examples:
+          - mark@example.com
+        phone:
+          type: string
+          title: Phone
+          default: ''
+          examples:
+          - '+380501234567'
+      type: object
+      required:
+      - full_name
+      - email
+      title: UserCreate
+    UserOut:
+      properties:
+        full_name:
+          type: string
+          title: Full Name
+          examples:
+          - Mark Pereverzov
+        email:
+          type: string
+          format: email
+          title: Email
+          examples:
+          - mark@example.com
+        phone:
+          type: string
+          title: Phone
+          default: ''
+          examples:
+          - '+380501234567'
+        person_id:
+          type: integer
+          title: Person Id
+          examples:
+          - 1
+        ticket_count:
+          type: integer
+          title: Ticket Count
+          default: 0
+          examples:
+          - 2
+      type: object
+      required:
+      - full_name
+      - email
+      - person_id
+      title: UserOut
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    VenueCreate:
+      properties:
+        name:
+          type: string
+          title: Name
+          examples:
+          - Palace Ukraina
+        address:
+          type: string
+          title: Address
+          examples:
+          - Kyiv, Velyka Vasylkivska 103
+        capacity:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Capacity
+          examples:
+          - 2000
+      type: object
+      required:
+      - name
+      - address
+      - capacity
+      title: VenueCreate
+    VenueOut:
+      properties:
+        name:
+          type: string
+          title: Name
+          examples:
+          - Palace Ukraina
+        address:
+          type: string
+          title: Address
+          examples:
+          - Kyiv, Velyka Vasylkivska 103
+        capacity:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Capacity
+          examples:
+          - 2000
+        venue_id:
+          type: integer
+          title: Venue Id
+          examples:
+          - 1
+      type: object
+      required:
+      - name
+      - address
+      - capacity
+      - venue_id
+      title: VenueOut
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key

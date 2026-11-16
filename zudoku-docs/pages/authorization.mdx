@@ -1,0 +1,46 @@
+---
+title: Authorization
+---
+
+# Authorization
+
+Ticketing System API використовує авторизацію за **API-ключем**, переданим у
+заголовку запиту. Схема безпеки описана в OpenAPI-документі (`components.securitySchemes.APIKeyHeader`):
+
+```yaml
+components:
+  securitySchemes:
+    APIKeyHeader:
+      type: apiKey
+      in: header
+      name: X-API-Key
+```
+
+## Як передати ключ
+
+Кожен запит до API (окрім `/openapi.json` та `/docs`) повинен містити заголовок:
+
+```
+X-API-Key: demo-key-123
+```
+
+Приклад запиту через `curl`:
+
+```bash
+curl -H "X-API-Key: demo-key-123" http://localhost:8000/events
+```
+
+У згенерованому SDK (див. [Installation](/installation)) ключ передається через
+`AuthenticatedClient(..., token="demo-key-123", auth_header_name="X-API-Key")`.
+
+## Коди помилок
+
+| Код | Коли виникає |
+| --- | --- |
+| `401 Unauthorized` | Заголовок `X-API-Key` відсутній або містить невірний ключ |
+| `404 Not Found` | Сутність (подія, квиток, користувач тощо) з таким id не знайдена |
+| `409 Conflict` | Недопустима операція: подія розпродана, або неможливий перехід статусу квитка |
+
+> У цьому навчальному проєкті `demo-key-123` — єдиний дійсний ключ, захардкоджений
+> у `api/main.py`. У реальній системі ключі зберігались би в базі даних та видавались
+> би кожному клієнту окремо.

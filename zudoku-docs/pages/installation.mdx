@@ -1,0 +1,55 @@
+---
+title: Installation
+---
+
+# Installation
+
+## 1. Запуск самого API
+
+```bash
+git clone <URL_ЦЬОГО_РЕПОЗИТОРІЮ>
+cd ticketing-system
+pip install -r requirements.txt
+uvicorn api.main:app --reload
+```
+
+API буде доступне на `http://localhost:8000`, Swagger UI — на `http://localhost:8000/docs`,
+а сира OpenAPI-специфікація — на `http://localhost:8000/openapi.json`.
+
+## 2. Встановлення згенерованого SDK (Python)
+
+SDK-клієнт згенеровано інструментом [`openapi-python-client`](https://github.com/openapi-generators/openapi-python-client)
+на основі файлу `openapi.yaml` (пункт 4 завдання) і лежить у теці `sdk/python-client`.
+
+```bash
+cd sdk/python-client
+pip install .
+```
+
+Після встановлення пакет `ticketing_system_api_client` можна імпортувати в будь-якому
+Python-проєкті:
+
+```python
+from ticketing_system_api_client import Client, AuthenticatedClient
+from ticketing_system_api_client.api.events.list_events_events_get import sync as list_events
+
+client = AuthenticatedClient(
+    base_url="http://localhost:8000",
+    token="demo-key-123",
+    prefix="",
+    auth_header_name="X-API-Key",
+)
+events = list_events(client=client)
+print(events)
+```
+
+## 3. Де лежить код і SDK
+
+| Що | Де |
+| --- | --- |
+| Вихідний код API та доменної моделі | `app/`, `api/` |
+| OpenAPI-специфікація (YAML/JSON) | `openapi.yaml`, `openapi.json` |
+| Згенерований Python SDK | `sdk/python-client/` |
+| Проєкт документації Zudoku | `zudoku-docs/` (цей сайт) |
+
+Посилання на репозиторій з усім кодом та SDK наведені на сторінці [About](/about).
